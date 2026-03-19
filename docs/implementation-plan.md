@@ -69,6 +69,8 @@ Testing and package structure should exist before feature implementation begins 
 ### Rationale
 CI is most useful once the repository has a package structure and tests. Introducing it early helps shape the development workflow before the codebase grows.
 
+CI should remain green as new phases are implemented. Feature branches should use local lint/test checks before merge to reduce churn in the workflow.
+
 ---
 
 ## Phase 3 — Core data pipeline

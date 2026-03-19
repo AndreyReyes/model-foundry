@@ -117,12 +117,37 @@ This repository uses:
 
 See `docs/development-workflow.md` for details.
 
+## Local Development
+
+Create and activate a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Install the project and development dependencies:
+
+```bash
+pip install -U pip
+pip install -e ".[dev]"
+```
+
+Run checks locally:
+
+```bash
+ruff check .
+pytest
+```
+
 ## Status
 
 Current status:
 - repository scaffold complete
-- initial documentation in progress
-- implementation not yet started in the new codebase
+- initial documentation complete
+- package and test scaffold complete
+- GitHub CI workflow added
+- implementation of the core data pipeline has not started yet
 
 ## Future Direction
 
