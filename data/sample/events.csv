@@ -1,0 +1,6 @@
+timestamp,user_id,role,channel_id,message_len,contains_link,device_type,label_is_spam
+2026-03-01T10:00:00Z,u1,expert,c1,120,0,desktop,0
+2026-03-01T10:01:00Z,u2,ops,c1,15,1,mobile,1
+2026-03-01T10:02:00Z,u3,expert,c2,300,0,desktop,0
+2026-03-01T10:03:00Z,u4,expert,c2,5,1,mobile,1
+2026-03-01T10:04:00Z,u5,ops,c3,80,0,desktop,0
