@@ -28,7 +28,7 @@ def test_clean_events_parses_timestamp_and_normalizes_types() -> None:
     assert cleaned["label_is_spam"].dtype == "int64"
 
 
-def test_clean_events_drops_rows_with_invalid_required_fields() -> None:
+def test_clean_events_drops_rows_with_invalid_timestamp() -> None:
     df = pd.DataFrame(
         [
             {
@@ -58,3 +58,100 @@ def test_clean_events_drops_rows_with_invalid_required_fields() -> None:
 
     assert len(cleaned) == 1
     assert cleaned.iloc[0]["user_id"] == "u2"
+
+
+def test_clean_events_drops_rows_with_invalid_message_len() -> None:
+    df = pd.DataFrame(
+        [
+            {
+                "timestamp": "2026-03-01T10:00:00Z",
+                "user_id": "u1",
+                "role": "expert",
+                "channel_id": "c1",
+                "message_len": "bad",
+                "contains_link": 0,
+                "device_type": "desktop",
+                "label_is_spam": 0,
+            },
+            {
+                "timestamp": "2026-03-01T10:01:00Z",
+                "user_id": "u2",
+                "role": "ops",
+                "channel_id": "c2",
+                "message_len": 15,
+                "contains_link": 1,
+                "device_type": "mobile",
+                "label_is_spam": 1,
+            },
+        ]
+    )
+
+    cleaned = clean_events(df)
+
+    assert len(cleaned) == 1
+    assert cleaned.iloc[0]["user_id"] == "u2"
+
+
+def test_clean_events_drops_rows_with_invalid_contains_link() -> None:
+    df = pd.DataFrame(
+        [
+            {
+                "timestamp": "2026-03-01T10:00:00Z",
+                "user_id": "u1",
+                "role": "expert",
+                "channel_id": "c1",
+                "message_len": 120,
+                "contains_link": "bad",
+                "device_type": "desktop",
+                "label_is_spam": 0,
+            },
+            {
+                "timestamp": "2026-03-01T10:01:00Z",
+                "user_id": "u2",
+                "role": "ops",
+                "channel_id": "c2",
+                "message_len": 15,
+                "contains_link": 1,
+                "device_type": "mobile",
+                "label_is_spam": 1,
+            },
+        ]
+    )
+
+    cleaned = clean_events(df)
+
+    assert len(cleaned) == 1
+    assert cleaned.iloc[0]["user_id"] == "u2"
+
+
+def test_clean_events_drops_rows_with_invalid_label() -> None:
+    df = pd.DataFrame(
+        [
+            {
+                "timestamp": "2026-03-01T10:00:00Z",
+                "user_id": "u1",
+                "role": "expert",
+                "channel_id": "c1",
+                "message_len": 120,
+                "contains_link": 0,
+                "device_type": "desktop",
+                "label_is_spam": "bad-label",
+            },
+            {
+                "timestamp": "2026-03-01T10:01:00Z",
+                "user_id": "u2",
+                "role": "ops",
+                "channel_id": "c2",
+                "message_len": 15,
+                "contains_link": 1,
+                "device_type": "mobile",
+                "label_is_spam": 1,
+            },
+        ]
+    )
+
+    cleaned = clean_events(df)
+
+    assert len(cleaned) == 1
+    assert cleaned.iloc[0]["user_id"] == "u2"
+    assert cleaned.iloc[0]["label_is_spam"] == 1
