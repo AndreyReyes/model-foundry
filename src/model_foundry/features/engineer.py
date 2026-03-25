@@ -8,7 +8,9 @@ def build_features(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     featured = df.copy()
     featured["hour_utc"] = featured["timestamp"].dt.hour.astype(int)
 
-    x = featured[["message_len", "contains_link", "hour_utc", "role", "device_type"]].copy()
+    x = featured[
+        ["message_len", "contains_link", "hour_utc", "role", "device_type"]
+    ].copy()
     y = featured["label_is_spam"].copy()
 
     return x, y
