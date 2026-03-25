@@ -133,10 +133,12 @@ pip install -U pip
 pip install -e ".[dev]"
 ```
 
-Run checks locally:
+Run the local validation sequence:
 
 ```bash
+ruff format .
 ruff check .
+mypy src tests
 pytest
 ```
 
@@ -146,8 +148,10 @@ Current status:
 - repository scaffold complete
 - initial documentation complete
 - package and test scaffold complete
-- GitHub CI workflow added
-- implementation of the core data pipeline has not started yet
+- GitHub CI workflow established
+- initial data pipeline complete
+- Python tooling strengthened with Ruff formatting, mypy, and stricter CI checks
+- implementation of the generalized training pipeline has not started yet
 
 ## Future Direction
 

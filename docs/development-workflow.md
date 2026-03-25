@@ -10,6 +10,7 @@ The workflow is built around:
 - small, atomic commits
 - Draft PRs for work in progress
 - early use of tests and CI
+- local validation with formatting, linting, type checking, and tests
 
 The goal is to keep the repository easy to understand, easy to review, and safe to evolve incrementally.
 
@@ -194,6 +195,7 @@ Before merging a branch:
 - tests for the touched area pass
 - unrelated changes are not bundled into the same branch
 - the diff has been self-reviewed
+- formatting, linting, type checking, and tests should all be green locally and in CI
 
 ### Merge style
 For now, a normal merge or squash merge are both acceptable.
@@ -210,7 +212,11 @@ If the branch contains many noisy intermediate commits, squash merge is preferab
 ## Local Development Expectations
 
 Before committing or merging, prefer to:
-- run relevant tests locally
+- run the local validation sequence:
+  - `ruff format .`
+  - `ruff check .`
+  - `mypy src tests`
+  - `pytest`
 - inspect diffs before committing
 - keep commits coherent and reviewable
 - avoid committing broken states unless intentionally isolated in WIP

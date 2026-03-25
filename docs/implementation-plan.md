@@ -62,14 +62,16 @@ Testing and package structure should exist before feature implementation begins 
 - make tests and development discipline part of the workflow early
 
 ### Deliverables
-- lint/test workflow
-- optional build checks
+- formatting check
+- lint workflow
+- type-check workflow
+- test workflow
 - CI status visible in GitHub
 
 ### Rationale
 CI is most useful once the repository has a package structure and tests. Introducing it early helps shape the development workflow before the codebase grows.
 
-CI should remain green as new phases are implemented. Feature branches should use local lint/test checks before merge to reduce churn in the workflow.
+CI should remain green as new phases are implemented. Feature branches should use the full local validation sequence before merge to reduce churn in the workflow.
 
 ---
 
@@ -89,6 +91,8 @@ CI should remain green as new phases are implemented. Feature branches should us
 
 ### Rationale
 The data path is the base of the entire lifecycle. Training and inference depend on this being correct and testable.
+
+This phase is now in place at an initial level, so the next implementation focus is the generalized training pipeline.
 
 ---
 
